@@ -27,8 +27,8 @@ public class Search {
 
     private void printSearchResult(int number, int totalNode, int[][] matrix) {
         // 인접 행렬을 확인하고 싶을 때 주석 풀기
-        //System.out.println("총 노드 개수 : " + totalNode);
-        //printGraph(matrix);
+//        System.out.println("총 노드 개수 : " + totalNode);
+//        printGraph(matrix);
 
         System.out.println("그래프 [" + number + "]");
         System.out.println("-".repeat(28));
@@ -39,11 +39,11 @@ public class Search {
         System.out.println("=".repeat(28 ) + "\n");
     }
 
-    private String broadFirstSearch(int totalNode, int[][] matrix) {
+    private String depthFirstSearch(int totalNode, int[][] matrix) {
         return null;
     }
 
-    private String depthFirstSearch(int totalNode, int[][] matrix) {
+    private String broadFirstSearch(int totalNode, int[][] matrix) {
         return null;
     }
 
