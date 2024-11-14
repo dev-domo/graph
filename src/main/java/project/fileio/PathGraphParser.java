@@ -25,7 +25,7 @@ public class PathGraphParser {
     private static int[][] createGraph(List<String> component, int totalNode) {
         int[][] graph = new int[totalNode][totalNode];
 
-        for (int node = 1; node < component.size(); node ++) {
+        for (int node = 1; node < component.size(); node++) {
             addGraph(component, graph, node);
         }
 

@@ -35,7 +35,7 @@ public class ShortestPath {
 
         System.out.println(dijkstra(totalNode, matrix));
 
-        System.out.println("=".repeat(28 ) + "\n");
+        System.out.println("=".repeat(28) + "\n");
     }
 
     private String dijkstra(int totalNode, int[][] matrix) {

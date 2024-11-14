@@ -8,6 +8,6 @@ public class Application {
         Controller controller = new Controller();
 
         controller.startSearch();
-        controller.startDijkstra();
+        controller.findShortestPath();
     }
 }
