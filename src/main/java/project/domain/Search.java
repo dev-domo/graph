@@ -36,7 +36,7 @@ public class Search {
         System.out.println(depthFirstSearch(totalNode, matrix));
         System.out.println(broadFirstSearch(totalNode, matrix));
 
-        System.out.println("=".repeat(28 ) + "\n");
+        System.out.println("=".repeat(28) + "\n");
     }
 
     private String depthFirstSearch(int totalNode, int[][] matrix) {

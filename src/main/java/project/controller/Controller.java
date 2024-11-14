@@ -1,11 +1,11 @@
 package project.controller;
 
-import project.fileio.ResourceReader;
-import project.fileio.PathGraphParser;
-import project.fileio.SearchGraphParser;
+import java.util.List;
 import project.domain.Search;
 import project.domain.ShortestPath;
-import java.util.List;
+import project.fileio.PathGraphParser;
+import project.fileio.ResourceReader;
+import project.fileio.SearchGraphParser;
 
 public class Controller {
 
@@ -21,7 +21,7 @@ public class Controller {
         search.doSearch();
     }
 
-    public void startDijkstra() {
+    public void findShortestPath() {
         List<List<String>> components = reader.readGraphs(INPUT2_FILE_PATH);
         ShortestPath shortestPath = PathGraphParser.parse(components);
 

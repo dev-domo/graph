@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ResourceReader {
 
@@ -35,7 +33,8 @@ public class ResourceReader {
         }
     }
 
-    private void addGraphComponent(int totalNode, List<String> input, BufferedReader bufferedReader) throws IOException {
+    private void addGraphComponent(int totalNode, List<String> input, BufferedReader bufferedReader)
+            throws IOException {
         while (totalNode > 0) {
             input.add(bufferedReader.readLine());
             totalNode--;
@@ -45,5 +44,4 @@ public class ResourceReader {
     private int toInt(String text) {
         return Integer.parseInt(text);
     }
-
 }
