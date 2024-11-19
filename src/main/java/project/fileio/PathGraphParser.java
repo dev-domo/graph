@@ -14,9 +14,9 @@ public class PathGraphParser {
 
         for (List<String> component : components) {
             int totalNode = toInt(component.get(0));
-            int[][] graph = createGraph(component, totalNode);
+            int[][] matrix = createGraph(component, totalNode);
 
-            graphs.add(new Graph(totalNode, graph));
+            graphs.add(new Graph(totalNode, matrix));
         }
 
         return new ShortestPath(graphs);
@@ -24,12 +24,23 @@ public class PathGraphParser {
 
     private static int[][] createGraph(List<String> component, int totalNode) {
         int[][] graph = new int[totalNode][totalNode];
+        initGraph(totalNode, graph);
 
         for (int node = 1; node < component.size(); node++) {
             addGraph(component, graph, node);
         }
 
         return graph;
+    }
+
+    private static void initGraph(int totalNode, int[][] graph) {
+        for (int i = 0; i < totalNode; i++) {
+            for (int j = 0; j < totalNode; j++) {
+                if (i != j) {
+                    graph[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
     }
 
     private static void addGraph(List<String> component, int[][] graph, int node) {
