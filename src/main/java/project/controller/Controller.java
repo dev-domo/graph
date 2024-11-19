@@ -14,14 +14,19 @@ public class Controller {
 
     private final ResourceReader reader = new ResourceReader();
 
-    public void startSearch() {
+    public void start() {
+        startSearch();
+        findShortestPath();
+    }
+
+    private void startSearch() {
         List<List<String>> components = reader.readGraphs(INPUT1_FILE_PATH);
         Search search = SearchGraphParser.parse(components);
 
         search.doSearch();
     }
 
-    public void findShortestPath() {
+    private void findShortestPath() {
         List<List<String>> components = reader.readGraphs(INPUT2_FILE_PATH);
         ShortestPath shortestPath = PathGraphParser.parse(components);
 
