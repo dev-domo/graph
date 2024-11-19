@@ -65,7 +65,6 @@ public class Search {
             }
             result.append(searchNode).append(" - ");
 
-
             for (int i = 0; i < totalNode; i++) {
                 if (matrix[searchNode - 1][i] == 1 && !visitedNode[i]) {
                     bfsQueue.add(i + 1);
@@ -84,10 +83,9 @@ public class Search {
                 }
                 bfsQueue.add(minNumNode);
                 visitedNode[minNumNode - 1] = true;
-                //result.replace(result.length()-3, result.length()-1, "   ");
-            } else {
+                result.replace(result.length()-3, result.length(), "   ");
             }
-
+            // 각 단계 별 result 테스트 출력용
             //System.out.println(result.toString());
         }
 
