@@ -72,7 +72,7 @@ public class Search {
                 }
             }
 
-            // 큐가 비었을 때 방문하지 않은 노드들이 남아있다면, 숫자가 가장 작은 노드 부터 또 탐색 시작
+            // 연결그래프 아닌 경우 : 큐가 비었을 때 방문하지 않은 노드들이 남아있다면, 숫자가 가장 작은 노드 부터 또 탐색 시작
             if (bfsQueue.isEmpty() && !isAllVisited(visitedNode, totalNode)) {
                 int minNumNode = 1;
                 for (int i = 0; i < totalNode; i++) {
