@@ -1,4 +1,29 @@
-# 그래프 탐방
+# 그래프 탐방과 최단거리
+- input1.txt, input2.txt 파일을 읽어 인접행렬로 저장
+- DFS, BFS 방식으로 그래프를 탐색한 순서 결과를 출력
+- 최단경로와 최단거리를 출력
+
+## 파일 구조
+```
+📦src
+┗ 📂main
+┃ ┣ 📂java
+┃ ┃ ┗ 📂project
+┃ ┃ ┃ ┣ 📂controller
+┃ ┃ ┃ ┃ ┗ 📜Controller.java
+┃ ┃ ┃ ┣ 📂domain
+┃ ┃ ┃ ┃ ┣ 📜Graph.java
+┃ ┃ ┃ ┃ ┣ 📜Search.java
+┃ ┃ ┃ ┃ ┗ 📜ShortestPath.java
+┃ ┃ ┃ ┣ 📂fileio
+┃ ┃ ┃ ┃ ┣ 📜PathGraphParser.java
+┃ ┃ ┃ ┃ ┣ 📜ResourceReader.java
+┃ ┃ ┃ ┃ ┗ 📜SearchGraphParser.java
+┃ ┃ ┃ ┗ 📜Application.java
+┃ ┗ 📂resources
+┃ ┃ ┣ 📜input1.txt
+┃ ┃ ┗ 📜input2.txt
+```
 
 ## 기능 구현 목록
 
