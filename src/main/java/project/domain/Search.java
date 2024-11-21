@@ -1,5 +1,6 @@
 package project.domain;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -22,16 +23,11 @@ public class Search {
         for (Graph graph : graphs) {
             totalNode = graph.getTotalNode();
             matrix = graph.getMatrix();
-
             printSearchResult(++number, totalNode, matrix);
         }
     }
 
     private void printSearchResult(int number, int totalNode, int[][] matrix) {
-        // 인접 행렬을 확인하고 싶을 때 주석 풀기
-        System.out.println("총 노드 개수 : " + totalNode);
-        printGraph(matrix);
-
         System.out.println("그래프 [" + number + "]");
         System.out.println("-".repeat(28));
 
@@ -42,71 +38,96 @@ public class Search {
     }
 
     private String depthFirstSearch(int totalNode, int[][] matrix) {
-        return null;
+        boolean[] visited = new boolean[totalNode + 1];
+        List<String> result = new ArrayList<>();
+
+        recursiveDfs(1, matrix, visited, result);
+
+        return formatResult(result);
+    }
+
+    private void recursiveDfs(int node, int[][] matrix, boolean[] visited, List<String> result) {
+        if (visited[node]) {
+            return;
+        }
+        visited[node] = true;
+        result.add(String.valueOf(node));
+
+        for (int neighbor = 0; neighbor < matrix[node - 1].length; neighbor++) {
+            if (matrix[node - 1][neighbor] == 1 && !visited[neighbor + 1]) {
+                recursiveDfs(neighbor + 1, matrix, visited, result);
+            }
+        }
+    }
+
+    private String formatResult(List<String> result) {
+        return "깊이 우선 탐색\n" + String.join(" - ", result);
     }
 
     private String breadthFirstSearch(int totalNode, int[][] matrix) {
         boolean[] visitedNode = new boolean[totalNode];
         StringBuilder result = new StringBuilder();
 
-        // 큐 선언. Node 1부터 탐색하므로 초기화.
         Queue<Integer> bfsQueue = new LinkedList<>();
         bfsQueue.add(1);
         visitedNode[0] = true;
 
-        // 큐의 맨 앞 노드 꺼내고, 여기에 연결된 방문하지 않은 모든 Node 큐에 집어넣기 (행 기준으로 탐색)
         while (true) {
             Integer searchNode = bfsQueue.poll();
 
-            // 큐가 비었고 && 모든 노드에 방문했다면 결과 출력
-            if (bfsQueue.isEmpty() && isAllVisited(visitedNode, totalNode)) {
-                result.append(searchNode);
+            if (isEndedSearch(totalNode, bfsQueue, visitedNode, result, searchNode)) {
                 break;
             }
+
             result.append(searchNode).append(" - ");
-
-            for (int i = 0; i < totalNode; i++) {
-                if (matrix[searchNode - 1][i] == 1 && !visitedNode[i]) {
-                    bfsQueue.add(i + 1);
-                    visitedNode[i] = true;
-                }
-            }
-
-            // 연결그래프 아닌 경우 : 큐가 비었을 때 방문하지 않은 노드들이 남아있다면, 숫자가 가장 작은 노드 부터 또 탐색 시작
-            if (bfsQueue.isEmpty() && !isAllVisited(visitedNode, totalNode)) {
-                int minNumNode = 1;
-                for (int i = 0; i < totalNode; i++) {
-                    if (!visitedNode[i]) {
-                        minNumNode = i + 1;
-                        break;
-                    }
-                }
-                bfsQueue.add(minNumNode);
-                visitedNode[minNumNode - 1] = true;
-                result.replace(result.length()-3, result.length(), "   ");
-            }
-            // 각 단계 별 result 테스트 출력용
-            //System.out.println(result.toString());
+            exploreNodes(totalNode, matrix, searchNode, visitedNode, bfsQueue);
+            checkNotConnectedGraph(totalNode, bfsQueue, visitedNode, result);
         }
 
-        return result.toString();
+        return "너비 우선 탐색\n" + result;
+    }
+
+    private boolean isEndedSearch(int totalNode, Queue<Integer> bfsQueue, boolean[] visitedNode, StringBuilder result,
+                                  Integer searchNode) {
+        if (bfsQueue.isEmpty() && isAllVisited(visitedNode, totalNode)) {
+            result.append(searchNode);
+            return true;
+        }
+        return false;
+    }
+
+    private void exploreNodes(int totalNode, int[][] matrix, Integer searchNode, boolean[] visitedNode,
+                              Queue<Integer> bfsQueue) {
+        for (int i = 0; i < totalNode; i++) {
+            if (matrix[searchNode - 1][i] == 1 && !visitedNode[i]) {
+                bfsQueue.add(i + 1);
+                visitedNode[i] = true;
+            }
+        }
+    }
+
+    private void checkNotConnectedGraph(int totalNode, Queue<Integer> bfsQueue, boolean[] visitedNode,
+                                        StringBuilder result) {
+        if (bfsQueue.isEmpty() && !isAllVisited(visitedNode, totalNode)) {
+            int minNumNode = 1;
+            for (int i = 0; i < totalNode; i++) {
+                if (!visitedNode[i]) {
+                    minNumNode = i + 1;
+                    break;
+                }
+            }
+            bfsQueue.add(minNumNode);
+            visitedNode[minNumNode - 1] = true;
+            result.replace(result.length() - 3, result.length(), "   ");
+        }
     }
 
     private boolean isAllVisited(boolean[] visited, int length) {
         for (int i = 0; i < length; i++) {
-            if (!visited[i])
+            if (!visited[i]) {
                 return false;
+            }
         }
         return true;
-    }
-
-    private void printGraph(int[][] matrix) {
-        for (int[] ints : matrix) {
-            for (int j = 0; j < matrix.length; j++) {
-                System.out.printf("%2d", ints[j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 }
