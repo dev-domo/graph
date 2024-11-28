@@ -1,16 +1,9 @@
-package project.controller;
-
 import java.util.List;
-import project.domain.Search;
-import project.domain.ShortestPath;
-import project.fileio.PathGraphParser;
-import project.fileio.ResourceReader;
-import project.fileio.SearchGraphParser;
 
 public class Controller {
 
-    private static final String INPUT1_FILE_PATH = "src/main/resources/input1.txt";
-    private static final String INPUT2_FILE_PATH = "src/main/resources/input2.txt";
+    private static final String INPUT1_FILE_PATH = "src/main/java/input1.txt";
+    private static final String INPUT2_FILE_PATH = "src/main/java/input2.txt";
 
     private final ResourceReader reader = new ResourceReader();
 

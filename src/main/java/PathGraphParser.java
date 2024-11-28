@@ -1,9 +1,5 @@
-package project.fileio;
-
 import java.util.ArrayList;
 import java.util.List;
-import project.domain.Graph;
-import project.domain.ShortestPath;
 
 public class PathGraphParser {
 

@@ -1,5 +1,3 @@
-package project.domain;
-
 public class Graph {
 
     private final int totalNode;
