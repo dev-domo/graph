@@ -37,45 +37,64 @@ public class ShortestPath {
         int[] distance = new int[totalNode];
         boolean[] visited = new boolean[totalNode];
         int[] parent = new int[totalNode];
+        int[] explorationOrder = new int[totalNode];
+        int currentOrder = 0;
 
         Arrays.fill(distance, Integer.MAX_VALUE);
         Arrays.fill(parent, -1);
+        Arrays.fill(explorationOrder, Integer.MAX_VALUE);
         distance[0] = 0;
+        explorationOrder[0] = currentOrder++;
 
-        for (int i = 0; i <= totalNode; i++) {
-            int u = findMinDistanceNode(distance, visited, totalNode);
+        for (int i = 0; i < totalNode; i++) {
+            int u = findMinDistanceNode(distance, visited, totalNode, explorationOrder);
             if (u == -1) {
                 break;
             }
             visited[u] = true;
-            updateMinDistance(totalNode, matrix, u, visited, distance, parent);
+
+            updateMinDistance(totalNode, matrix, u, visited, distance, parent,explorationOrder, currentOrder);
+            currentOrder++;
         }
 
         return formatResult(totalNode, distance, parent);
     }
 
     private void updateMinDistance(int totalNode, int[][] matrix, int u, boolean[] visited, int[] distance,
-                                   int[] parent) {
+                                   int[] parent, int[] explorationOrder, int currentOrder) {
         for (int v = 0; v < totalNode; v++) {
-            if (matrix[u][v] != Integer.MAX_VALUE && matrix[u][v] > 0 && !visited[v]
-                    && distance[u] + matrix[u][v] < distance[v]) {
-                distance[v] = distance[u] + matrix[u][v];
-                parent[v] = u;
+            if (matrix[u][v] != Integer.MAX_VALUE && matrix[u][v] > 0 && !visited[v]){
+                int newDistance = distance[u] + matrix[u][v];
+
+                if (newDistance < distance[v]) {
+                    distance[v] = newDistance;
+                    parent[v] = u;
+                    explorationOrder[v] = currentOrder;
+                } else if (newDistance == distance[v] && explorationOrder[v] > explorationOrder[u]){
+                    if (explorationOrder[u] < explorationOrder[v]) {
+                        parent[v] = u;
+                        explorationOrder[v] = currentOrder;
+                    }
+                }
             }
         }
     }
 
-    private int findMinDistanceNode(int[] distance, boolean[] visited, int totalNode) {
+    private int findMinDistanceNode(int[] distance, boolean[] visited, int totalNode, int[] explorationOrder) {
         int minDistance = Integer.MAX_VALUE;
         int minNode = -1;
 
         for (int i = 0; i < totalNode; i++) {
-            if (!visited[i] && distance[i] < minDistance) {
-                minDistance = distance[i];
-                minNode = i;
+            if (!visited[i]){
+                if (distance[i] < minDistance){
+                    minDistance = distance[i];
+                    minNode = i;
+                }else if(distance[i] == minDistance){
+                    if (minNode == -1 || explorationOrder[i] < explorationOrder[minNode])
+                        minNode = i;
+                }
             }
         }
-
         return minNode;
     }
 
