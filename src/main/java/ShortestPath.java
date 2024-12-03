@@ -53,8 +53,11 @@ public class ShortestPath {
             }
             visited[u] = true;
 
-            updateMinDistance(totalNode, matrix, u, visited, distance, parent,explorationOrder, currentOrder);
+            updateMinDistance(totalNode, matrix, u, visited, distance, parent, explorationOrder, currentOrder);
             currentOrder++;
+
+            // System.out.println(i + " : " + formatResult(totalNode, distance, parent));
+            // System.out.println(u);
         }
 
         return formatResult(totalNode, distance, parent);
@@ -70,12 +73,16 @@ public class ShortestPath {
                     distance[v] = newDistance;
                     parent[v] = u;
                     explorationOrder[v] = currentOrder;
-                } else if (newDistance == distance[v] && explorationOrder[v] > explorationOrder[u]){
-                    if (explorationOrder[u] < explorationOrder[v]) {
-                        parent[v] = u;
-                        explorationOrder[v] = currentOrder;
-                    }
+
+                    // System.out.println("newDistance < distance[v] : " + parent[v]);
                 }
+//                else if (newDistance == distance[v] && explorationOrder[v] > explorationOrder[u]){
+//                    if (explorationOrder[u] < explorationOrder[v]) {
+//                        parent[v] = u;
+//                        explorationOrder[v] = currentOrder;
+//                    }
+//                    //System.out.println("newDistance == distance[v] : " + parent[v]);
+//                }
             }
         }
     }
